@@ -76,6 +76,9 @@ public class HadoopLauncher {
 	    job.setCombinerClass(AverageCombiner.class);
 	    job.setReducerClass(AverageReducer.class);
 	    
+	    job.setMapOutputKeyClass(Text.class);
+	    job.setMapOutputValueClass(ValueCountPair.class);
+	    
 	    job.setOutputValueClass(ValueCountPair.class);
 	    job.setOutputKeyClass(Text.class);
 	    
