@@ -69,7 +69,7 @@ public class MainWindowController implements Initializable{
     		alert.showAndWait();
 		});
 		
-		task.run();
+		new Thread(task).run();
     }
     
     private HadoopLauncher launcher;
