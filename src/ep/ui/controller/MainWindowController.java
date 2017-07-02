@@ -48,11 +48,7 @@ public class MainWindowController implements Initializable{
     @FXML
     void btnExecutarClick(ActionEvent event) {
     	
-<<<<<<< HEAD
     	//TODO: VALIDAÇÃO AQUI PF
-=======
-    	//TODO: VALIDA��O AQUI PF
->>>>>>> 5bdd465ce92bab3cfb9353dfcae6d8a83d1b3f4b
     	
     	try{
     		Thread t = new Thread(() -> {
@@ -92,11 +88,8 @@ public class MainWindowController implements Initializable{
     		new ComboBoxKVP("Velocidade do vento (WDSP)", "WDSP"),
     		new ComboBoxKVP("Velocidade Máxima do vento sustentada (MXSPD)", "MXSPD"),
     		new ComboBoxKVP("Velocidade Máxima de rajada de vento (GUST)", "GUST"),
-<<<<<<< HEAD
     		new ComboBoxKVP("Profundidade da neve (SNDP)", "SNDP"),
     		new ComboBoxKVP("Precipitação Total (PRCP)", "PRCP"),
-=======
->>>>>>> 5bdd465ce92bab3cfb9353dfcae6d8a83d1b3f4b
     		new ComboBoxKVP("Temperatura Máxima (MAX)", "MAX"),
     		new ComboBoxKVP("Temperatura Mínima (MIN)", "MIN"));
     
