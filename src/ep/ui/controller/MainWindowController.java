@@ -11,8 +11,6 @@ import ep.hadoop.startup.HadoopLauncher;
 import ep.helper.DateHelper;
 import ep.helper.UiExceptionHelper;
 import ep.ui.vo.ComboBoxKVP;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,7 +21,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.util.Duration;
 
 public class MainWindowController implements Initializable{
 
@@ -54,14 +51,22 @@ public class MainWindowController implements Initializable{
     	//TODO: VALIDAÇÃO AQUI PF
     	
     	try{
-        	launcher.LaunchHadoop(
-        			DateHelper.LocalDateToDate(dtInicio.getValue()),
-        			DateHelper.LocalDateToDate(dtTermino.getValue()),
-        			cmbMetodo.getValue().toString(),
-        			cmbMetodo.getValue().toString());
+    		Thread t = new Thread(() -> {
+            	try {
+					launcher.LaunchHadoop(
+							DateHelper.LocalDateToDate(dtInicio.getValue()),
+							DateHelper.LocalDateToDate(dtTermino.getValue()),
+							cmbMetodo.getValue().toString(),
+							cmbMetodo.getValue().toString());
+				} catch (Exception e) {
+					Alert alert = UiExceptionHelper.getAlertForException(e);
+		    		alert.showAndWait();
+				}
+    		});
+    		t.start();
+
     	}catch(Exception e){
-    		Alert alert = UiExceptionHelper.getAlertForException(e);
-    		alert.showAndWait();
+    		
     	}
     }
     
