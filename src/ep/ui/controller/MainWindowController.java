@@ -51,7 +51,7 @@ public class MainWindowController implements Initializable{
     @FXML
     void btnExecutarClick(ActionEvent event) {
     	
-    	//TODO: VALIDA��O AQUI PF
+    	//TODO: VALIDAÇÃO AQUI PF
     	
     	try{
         	launcher.LaunchHadoop(
@@ -77,14 +77,16 @@ public class MainWindowController implements Initializable{
     private final ObservableList<ComboBoxKVP> atributoList = FXCollections.observableArrayList(
     		new ComboBoxKVP("Temperatura (TEMP)", "TEMP"),
     		new ComboBoxKVP("Temperatura do ponto de orvalho (DEWP)", "DEWP"),
-    		new ComboBoxKVP("Press�o N�vel do Mar (SLP)", "SLP"),
-    		new ComboBoxKVP("Press�o na esta��o (STP)", "STP"),
-    		new ComboBoxKVP("Visibilidade em d�cimos de milhas (VISIB)", "VISIB"),
+    		new ComboBoxKVP("Pressão Nível do Mar (SLP)", "SLP"),
+    		new ComboBoxKVP("Pressão na estação (STP)", "STP"),
+    		new ComboBoxKVP("Visibilidade em décimos de milhas (VISIB)", "VISIB"),
     		new ComboBoxKVP("Velocidade do vento (WDSP)", "WDSP"),
-    		new ComboBoxKVP("Velocidade M�xima do vento sustentada (MXSPD)", "MXSPD"),
-    		new ComboBoxKVP("Velocidade M�xima de rajada de vento (GUST)", "GUST"),
-    		new ComboBoxKVP("Temperatura M�xima (MAX)", "MAX"),
-    		new ComboBoxKVP("Temperatura M�nima (MIN)", "MIN"));
+    		new ComboBoxKVP("Velocidade Máxima do vento sustentada (MXSPD)", "MXSPD"),
+    		new ComboBoxKVP("Velocidade Máxima de rajada de vento (GUST)", "GUST"),
+    		new ComboBoxKVP("Profundidade da neve (SNDP)", "SNDP"),
+    		new ComboBoxKVP("Precipitação Total (PRCP)", "PRCP"),
+    		new ComboBoxKVP("Temperatura Máxima (MAX)", "MAX"),
+    		new ComboBoxKVP("Temperatura Mínima (MIN)", "MIN"));
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
