@@ -11,13 +11,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
 public class UiExceptionHelper {
-	public static Alert getAlertForException(Exception ex){
+	public static Alert getAlertForException(Throwable throwable){
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Erro");
 		alert.setHeaderText("Uma exceção foi lançada no sistema.");
 
 		StringWriter sw = new StringWriter();
-		ex.printStackTrace(new PrintWriter(sw));
+		throwable.printStackTrace(new PrintWriter(sw));
 		String exceptionText = sw.toString();
 		
 		Label label = new Label("StackTrace:");
