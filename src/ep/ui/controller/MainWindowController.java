@@ -13,6 +13,7 @@ import ep.helper.UiExceptionHelper;
 import ep.ui.vo.ComboBoxKVP;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -50,24 +51,25 @@ public class MainWindowController implements Initializable{
     	
     	//TODO: VALIDAÇÃO AQUI PF
     	
-    	try{
-    		Thread t = new Thread(() -> {
-            	try {
-					launcher.LaunchHadoop(
-							DateHelper.LocalDateToDate(dtInicio.getValue()),
-							DateHelper.LocalDateToDate(dtTermino.getValue()),
-							cmbMetodo.getValue().toString(),
-							cmbMetodo.getValue().toString());
-				} catch (Exception e) {
-					Alert alert = UiExceptionHelper.getAlertForException(e);
-		    		alert.showAndWait();
-				}
-    		});
-    		t.start();
-
-    	}catch(Exception e){
-    		
-    	}
+		Task<Void> task = new Task<Void>() {
+			
+			@Override
+			protected Void call() throws Exception {
+				launcher.LaunchHadoop(
+						DateHelper.LocalDateToDate(dtInicio.getValue()),
+						DateHelper.LocalDateToDate(dtTermino.getValue()),
+						cmbMetodo.getValue().toString(),
+						cmbMetodo.getValue().toString());
+				return null;
+			}
+		};
+		
+		task.setOnFailed(e -> {
+			Alert alert = UiExceptionHelper.getAlertForException(task.getException());
+    		alert.showAndWait();
+		});
+		
+		task.run();
     }
     
     private HadoopLauncher launcher;
