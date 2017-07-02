@@ -59,7 +59,7 @@ public class MainWindowController implements Initializable{
 						DateHelper.LocalDateToDate(dtInicio.getValue()),
 						DateHelper.LocalDateToDate(dtTermino.getValue()),
 						cmbMetodo.getValue().toString(),
-						cmbMetodo.getValue().toString());
+						cmbAtributo.getValue().toString());
 				return null;
 			}
 		};

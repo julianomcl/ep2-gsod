@@ -32,7 +32,7 @@ public class HadoopLauncher {
 	
 	public HadoopLauncher(EventHandler<ActionEvent> action){
 		this.action = action;
-		workerThread = new Timeline(new KeyFrame(Duration.seconds(2), action));
+		workerThread = new Timeline(new KeyFrame(Duration.millis(250), action));
 		workerThread.setCycleCount(Timeline.INDEFINITE);
 	}
 	
