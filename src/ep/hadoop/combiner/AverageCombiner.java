@@ -19,6 +19,7 @@ public class AverageCombiner extends Reducer<Text, ValueCountPair, Text, ValueCo
 			value += valuePair.getValue().get();
 			count += valuePair.getCount().get();
 		}
+		
 		pair.set(value, count);
 		context.write(key, pair);
 	}

@@ -14,7 +14,7 @@ public class UiExceptionHelper {
 	public static Alert getAlertForException(Exception ex){
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Erro");
-		alert.setHeaderText("Uma exceção foi lançada no sistema.");
+		alert.setHeaderText("Uma exceÃ§Ã£o foi lanÃ§ada no sistema.");
 
 		StringWriter sw = new StringWriter();
 		ex.printStackTrace(new PrintWriter(sw));

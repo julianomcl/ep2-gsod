@@ -21,7 +21,7 @@ public class DataMapper extends Mapper<Object, Text, Text, ValueCountPair> {
 	@Override
 	protected void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 		DayDataVO vo = null;
-
+		
 		try {
 			vo = GsodParser.parseText(value);
 			if (vo == null)

@@ -21,7 +21,6 @@ public class StdDevReducer extends Reducer<Text, ValueCountPair, Text, FloatWrit
 		float value = 0;
 		float average = 0;
 		int count = 0;
-		
 
 		Path pt = new Path("hdfs://localhost:9000/usr/local/hadoop/average/part-r-00000");
 		FileSystem fs = FileSystem.get(new Configuration());
