@@ -20,6 +20,7 @@ public class AverageReducer extends Reducer<Text, ValueCountPair, Text, FloatWri
 			value += valuePair.getValue().get();
 			count += valuePair.getCount().get();
 		}
+		
 		average.set((float) (value / count));
 		context.write(key, average);
 	}
