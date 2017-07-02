@@ -58,8 +58,8 @@ public class MainWindowController implements Initializable{
 				launcher.LaunchHadoop(
 						DateHelper.LocalDateToDate(dtInicio.getValue()),
 						DateHelper.LocalDateToDate(dtTermino.getValue()),
-						cmbMetodo.getValue().toString(),
-						cmbAtributo.getValue().toString());
+						cmbMetodo.getValue().getValue(),
+						cmbAtributo.getValue().getValue());
 				return null;
 			}
 		};
