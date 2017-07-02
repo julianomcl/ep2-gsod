@@ -6,12 +6,10 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.Tool;
-import org.apache.hadoop.util.ToolRunner;
 
-import ep.hadoop.AverageCombiner;
-import ep.hadoop.DataMapper;
-import ep.hadoop.AverageReducer;
-import ep.hadoop.StdDevReducer;
+import ep.hadoop.combiner.AverageCombiner;
+import ep.hadoop.mapper.DataMapper;
+import ep.hadoop.reducer.AverageReducer;
 import ep.vo.ValueCountPair;
 public class Main extends Configured implements Tool{
 	
@@ -30,7 +28,6 @@ public class Main extends Configured implements Tool{
 	    job.setMapperClass(DataMapper.class);
 	    job.setCombinerClass(AverageCombiner.class);
 	    job.setCombinerClass(AverageReducer.class);
-	    //job.setReducerClass(StdDevReducer.class);
 	    
 	    job.setOutputValueClass(ValueCountPair.class);
 	    job.setOutputKeyClass(Text.class);
