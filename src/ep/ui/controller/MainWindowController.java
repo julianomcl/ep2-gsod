@@ -43,7 +43,7 @@ public class MainWindowController implements Initializable{
     @FXML
     void btnExecutarClick(ActionEvent event) {
     	
-    	//TODO: VALIDAÇÃO AQUI PF
+    	//TODO: VALIDAï¿½ï¿½O AQUI PF
     	
     	try{
         	HadoopLauncher.LaunchHadoop(
@@ -67,14 +67,14 @@ public class MainWindowController implements Initializable{
     private final ObservableList<ComboBoxKVP> atributoList = FXCollections.observableArrayList(
     		new ComboBoxKVP("Temperatura (TEMP)", "TEMP"),
     		new ComboBoxKVP("Temperatura do ponto de orvalho (DEWP)", "DEWP"),
-    		new ComboBoxKVP("Pressão Nível do Mar (SLP)", "SLP"),
-    		new ComboBoxKVP("Pressão na estação (STP)", "STP"),
-    		new ComboBoxKVP("Visibilidade em décimos de milhas (VISIB)", "VISIB"),
+    		new ComboBoxKVP("PressÃ£o NÃ­vel do Mar (SLP)", "SLP"),
+    		new ComboBoxKVP("PressÃ£o na estaÃ§Ã£o (STP)", "STP"),
+    		new ComboBoxKVP("Visibilidade em dÃ©cimos de milhas (VISIB)", "VISIB"),
     		new ComboBoxKVP("Velocidade do vento (WDSP)", "WDSP"),
-    		new ComboBoxKVP("Velocidade Máxima do vento sustentada (MXSPD)", "MXSPD"),
-    		new ComboBoxKVP("Velocidade Máxima de rajada de vento (GUST)", "GUST"),
-    		new ComboBoxKVP("Temperatura Máxima (MAX)", "MAX"),
-    		new ComboBoxKVP("Temperatura Mínima (MIN)", "MIN"));
+    		new ComboBoxKVP("Velocidade MÃ¡xima do vento sustentada (MXSPD)", "MXSPD"),
+    		new ComboBoxKVP("Velocidade MÃ¡xima de rajada de vento (GUST)", "GUST"),
+    		new ComboBoxKVP("Temperatura MÃ¡xima (MAX)", "MAX"),
+    		new ComboBoxKVP("Temperatura MÃ­nima (MIN)", "MIN"));
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {

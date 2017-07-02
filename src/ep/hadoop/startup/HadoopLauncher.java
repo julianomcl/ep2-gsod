@@ -39,8 +39,8 @@ public class HadoopLauncher {
 	    job.setOutputValueClass(ValueCountPair.class);
 	    job.setOutputKeyClass(Text.class);
 	    
-	    FileInputFormat.addInputPath(job, new Path("CONFIGURAR"));
-	    FileOutputFormat.setOutputPath(job, new Path("CONFIGURAR"));
+	    FileInputFormat.addInputPath(job, new Path("/usr/local/hadoop/gsod-partial/1939/1939"));
+	    FileOutputFormat.setOutputPath(job, new Path("/usr/local/hadoop/average/output"));
 	    
 	    return job.waitForCompletion(true) ? 0 : 1;
 	}
