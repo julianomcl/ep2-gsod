@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.DatePicker?>
+
+<AnchorPane fx:id="ancMain" prefHeight="230.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ep.ui.controller.MainWindowController">
+   <children>
+      <Pane layoutX="20.0" layoutY="20.0" prefHeight="200.0" prefWidth="610.0" style="-fx-background-color: #ffffff;" AnchorPane.topAnchor="20.0">
+         <children>
+            <GridPane prefHeight="200.0" prefWidth="610.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" percentWidth="0.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints percentHeight="0.0" vgrow="SOMETIMES" />
+                <RowConstraints percentHeight="25.0" vgrow="SOMETIMES" />
+                <RowConstraints percentHeight="45.0" vgrow="SOMETIMES" />
+                  <RowConstraints percentHeight="50.0" vgrow="SOMETIMES" />
+                  <RowConstraints percentHeight="35.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="15.0" />
+               </padding>
+               <children>
+                  <DatePicker fx:id="dtInicio" prefHeight="25.0" prefWidth="200.0" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets left="75.0" />
+                     </GridPane.margin>
+                  </DatePicker>
+                  <Label text="Data Início:" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <DatePicker fx:id="dtTermino" prefHeight="25.0" prefWidth="230.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets left="80.0" right="20.0" />
+                     </GridPane.margin>
+                  </DatePicker>
+                  <Label text="Data Término:" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </Label>
+                  <JFXComboBox fx:id="cmbAtributo" labelFloat="true" prefWidth="570.0" promptText="Atributo" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin>
+                  </JFXComboBox>
+                  <JFXComboBox fx:id="cmbMetodo" labelFloat="true" prefWidth="570.0" promptText="Método" GridPane.columnSpan="2" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin>
+                  </JFXComboBox>
+                  <JFXButton buttonType="RAISED" prefWidth="125.0" style="-fx-background-color: #9E9E9E;" text="Executar" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                     <GridPane.margin>
+                        <Insets right="25.0" />
+                     </GridPane.margin>
+                  </JFXButton>
+               </children>
+            </GridPane>
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Pane>
+   </children>
+</AnchorPane>
