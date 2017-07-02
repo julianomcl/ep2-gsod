@@ -65,6 +65,7 @@
                         <Insets right="25.0" />
                      </GridPane.margin>
                   </JFXButton>
+                  <Label fx:id="lblProgress" text="Label" GridPane.rowIndex="4" />
                </children>
             </GridPane>
          </children>

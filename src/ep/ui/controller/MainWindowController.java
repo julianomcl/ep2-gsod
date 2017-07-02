@@ -11,19 +11,27 @@ import ep.hadoop.startup.HadoopLauncher;
 import ep.helper.DateHelper;
 import ep.helper.UiExceptionHelper;
 import ep.ui.vo.ComboBoxKVP;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 
 public class MainWindowController implements Initializable{
 
     @FXML
     private JFXComboBox<ComboBoxKVP> cmbMetodo;
+    
+    @FXML
+    private Label lblProgress;
 
     @FXML
     private AnchorPane ancMain;
@@ -43,10 +51,10 @@ public class MainWindowController implements Initializable{
     @FXML
     void btnExecutarClick(ActionEvent event) {
     	
-    	//TODO: VALIDAÇÃO AQUI PF
+    	//TODO: VALIDAï¿½ï¿½O AQUI PF
     	
     	try{
-        	HadoopLauncher.LaunchHadoop(
+        	launcher.LaunchHadoop(
         			DateHelper.LocalDateToDate(dtInicio.getValue()),
         			DateHelper.LocalDateToDate(dtTermino.getValue()),
         			cmbMetodo.getValue().toString(),
@@ -56,6 +64,8 @@ public class MainWindowController implements Initializable{
     		alert.showAndWait();
     	}
     }
+    
+    private HadoopLauncher launcher;
     
     
     private final ObservableList<ComboBoxKVP> metodoList = FXCollections.observableArrayList(
@@ -67,14 +77,14 @@ public class MainWindowController implements Initializable{
     private final ObservableList<ComboBoxKVP> atributoList = FXCollections.observableArrayList(
     		new ComboBoxKVP("Temperatura (TEMP)", "TEMP"),
     		new ComboBoxKVP("Temperatura do ponto de orvalho (DEWP)", "DEWP"),
-    		new ComboBoxKVP("Pressão Nível do Mar (SLP)", "SLP"),
-    		new ComboBoxKVP("Pressão na estação (STP)", "STP"),
-    		new ComboBoxKVP("Visibilidade em décimos de milhas (VISIB)", "VISIB"),
+    		new ComboBoxKVP("Pressï¿½o Nï¿½vel do Mar (SLP)", "SLP"),
+    		new ComboBoxKVP("Pressï¿½o na estaï¿½ï¿½o (STP)", "STP"),
+    		new ComboBoxKVP("Visibilidade em dï¿½cimos de milhas (VISIB)", "VISIB"),
     		new ComboBoxKVP("Velocidade do vento (WDSP)", "WDSP"),
-    		new ComboBoxKVP("Velocidade Máxima do vento sustentada (MXSPD)", "MXSPD"),
-    		new ComboBoxKVP("Velocidade Máxima de rajada de vento (GUST)", "GUST"),
-    		new ComboBoxKVP("Temperatura Máxima (MAX)", "MAX"),
-    		new ComboBoxKVP("Temperatura Mínima (MIN)", "MIN"));
+    		new ComboBoxKVP("Velocidade Mï¿½xima do vento sustentada (MXSPD)", "MXSPD"),
+    		new ComboBoxKVP("Velocidade Mï¿½xima de rajada de vento (GUST)", "GUST"),
+    		new ComboBoxKVP("Temperatura Mï¿½xima (MAX)", "MAX"),
+    		new ComboBoxKVP("Temperatura Mï¿½nima (MIN)", "MIN"));
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -83,5 +93,18 @@ public class MainWindowController implements Initializable{
     	
     	cmbMetodo.setItems(metodoList);
     	cmbAtributo.setItems(atributoList);
+    	
+    	launcher = new HadoopLauncher(getProgressAction());
+    }
+
+    
+    private EventHandler<ActionEvent> getProgressAction(){
+    	return new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				lblProgress.setText("Map: " + launcher.getMapProgress() + "| Reduce: " + launcher.getReduceProgress());
+			}
+		};
     }
 }

@@ -16,9 +16,49 @@ import ep.hadoop.combiner.AverageCombiner;
 import ep.hadoop.mapper.DataMapper;
 import ep.hadoop.reducer.AverageReducer;
 import ep.vo.ValueCountPair;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.util.Duration;
 
 public class HadoopLauncher {
-	public static int LaunchHadoop(Date dtInicio, Date dtFim, String metodo, String atributo) throws IOException, ClassNotFoundException, InterruptedException{
+	
+	private Job job;
+	
+	private EventHandler<ActionEvent> action;
+	
+	private Timeline workerThread;
+	
+	public HadoopLauncher(EventHandler<ActionEvent> action){
+		this.action = action;
+		workerThread = new Timeline(new KeyFrame(Duration.seconds(2), action));
+		workerThread.setCycleCount(Timeline.INDEFINITE);
+	}
+	
+	public float getMapProgress(){
+		if(job == null)
+			return 0.0f;
+		
+		try {
+			return job.mapProgress();
+		} catch (Exception e) {
+			return -1.0f;
+		}
+	}
+	
+	public float getReduceProgress(){
+		if(job == null)
+			return 0.0f;
+		
+		try{
+			return job.reduceProgress();
+		}catch(Exception ex){
+			return -1.0f;
+		}
+	}
+	
+	public int LaunchHadoop(Date dtInicio, Date dtFim, String metodo, String atributo) throws IOException, ClassNotFoundException, InterruptedException{
 		Configuration conf = new Configuration();
 		conf.set("Metodo", metodo);
 		conf.set("Variavel", atributo);
@@ -28,7 +68,7 @@ public class HadoopLauncher {
 		conf.set("DataTermino", sdf.format(dtFim));
 		
 		
-		Job job = Job.getInstance(conf, "GSOD Hadoop");
+		job = Job.getInstance(conf, "GSOD Hadoop");
 		
 	    job.setJarByClass(Main.class);
 	    
@@ -42,6 +82,23 @@ public class HadoopLauncher {
 	    FileInputFormat.addInputPath(job, new Path("CONFIGURAR"));
 	    FileOutputFormat.setOutputPath(job, new Path("CONFIGURAR"));
 	    
+	    workerThread.play();
+	    
 	    return job.waitForCompletion(true) ? 0 : 1;
 	}
+
+	public EventHandler<ActionEvent> getAction() {
+		return action;
+	}
+
+	public void setAction(EventHandler<ActionEvent> action) {
+		this.action = action;
+		workerThread.stop();
+		workerThread.setOnFinished(action);
+		workerThread.setCycleCount(Timeline.INDEFINITE);
+		workerThread.play();
+	}
+	
+	
+	
 }
