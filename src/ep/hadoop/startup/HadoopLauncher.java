@@ -1,7 +1,10 @@
 package ep.hadoop.startup;
 
 import java.io.File;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.apache.hadoop.conf.Configuration;
@@ -12,6 +15,8 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.Tool;
+
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
 import ep.hadoop.combiner.AverageCombiner;
 import ep.hadoop.mapper.DataMapper;
@@ -107,20 +112,52 @@ public class HadoopLauncher extends Configured implements Tool {
 	    job.setOutputValueClass(ValueCountPair.class);
 	    job.setOutputKeyClass(Text.class);
 	    
+	  //pegar todos os anos entre a data de inicio e termino
+        DateFormat formater = new SimpleDateFormat("dd-MM-yyyy");
+
+        Calendar beginCalendar = Calendar.getInstance();
+        Calendar finishCalendar = Calendar.getInstance();
+
+        try {
+            beginCalendar.setTime(formater.parse(arg0[0]));
+            finishCalendar.setTime(formater.parse(arg0[1]));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        
+        ArrayList<String> years = new ArrayList<String>();
+
+        while (beginCalendar.before(finishCalendar)) {
+            // adiciona um ano a data por loop
+            String date = formater.format(beginCalendar.getTime()).toUpperCase();
+            System.out.println(date.substring(6));
+            years.add(date.substring(6));
+            beginCalendar.add(Calendar.YEAR, 1);
+        }
+        
+        //pega os paths de arquivos de acordo com os anos
+        String inputPaths = ""; 
+        for(String year : years) {
+        	inputPaths += "/usr/local/hadoop/gsod/" + year + ",";
+        }
+        inputPaths = inputPaths.substring(0, inputPaths.length()-1);
+        System.out.println(inputPaths);
 	    
-	    FileInputFormat.addInputPath(job, new Path("/usr/local/hadoop/gsod-partial/1939/1939"));
+	    FileInputFormat.addInputPaths(job, inputPaths);
 	    
 	    String outputFolder = "/usr/local/hadoop/average/output";
 	    FileOutputFormat.setOutputPath(job, new Path(outputFolder));
 	    
 	    File folder = new File(outputFolder);
 	    String[] files = folder.list();
-	    for(String file : files){
-	    	File currentFile = new File(folder.getPath(), file);
-	    	currentFile.delete();
+	    if(files != null) {
+	    	for(String file : files){
+		    	File currentFile = new File(folder.getPath(), file);
+		    	currentFile.delete();
+		    }
+		    folder.delete();
 	    }
-	    folder.delete();
-	    
+	   
 	    workerThread.play();
 	    
 	    return job.waitForCompletion(true) ? 0 : 1;
