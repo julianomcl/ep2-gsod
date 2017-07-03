@@ -21,10 +21,6 @@ public class AverageCombiner extends Reducer<Text, ValueCountPair, Text, ValueCo
 		}
 		
 		pair.set(value, count);
-		
-		System.out.println("******************************************************");
-		System.out.println("AverageCombiner: " + key + " - " + pair);
-		System.out.println("******************************************************");
 		context.write(key, pair);
 	}
 }

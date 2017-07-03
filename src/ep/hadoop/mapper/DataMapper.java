@@ -59,11 +59,6 @@ public class DataMapper extends Mapper<Object, Text, Text, ValueCountPair> {
 
 		outText.set(data);
 		pair.set(valor, 1);
-		
-		
-		System.out.println("******************************************************");
-		System.out.println("DataMapper: " + key + " - " + pair);
-		System.out.println("******************************************************");
 		context.write(outText, pair);
 
 	}
