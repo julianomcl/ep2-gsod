@@ -57,7 +57,7 @@ public class DataMapper extends Mapper<Object, Text, Text, ValueCountPair> {
 
 		String data = getPeriodo(vo, metodo);
 
-		outText.set(data);
+		outText.set(metodo + "|" + data);
 		pair.set(valor, 1);
 		context.write(outText, pair);
 

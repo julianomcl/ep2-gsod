@@ -10,7 +10,6 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXProgressBar;
 
 import ep.hadoop.startup.HadoopLauncher;
-import ep.helper.DateHelper;
 import ep.helper.UiExceptionHelper;
 import ep.ui.vo.ComboBoxKVP;
 import javafx.collections.FXCollections;
@@ -23,7 +22,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 public class MainWindowController implements Initializable{
