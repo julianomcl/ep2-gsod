@@ -1,5 +1,6 @@
 package ep.hadoop.startup;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -109,11 +110,20 @@ public class HadoopLauncher extends Configured implements Tool {
 	    job.setOutputKeyClass(Text.class);
 	    
 	    FileInputFormat.addInputPath(job, new Path("/usr/local/hadoop/gsod-partial/1939/1939"));
-	    FileOutputFormat.setOutputPath(job, new Path("/usr/local/hadoop/average/output"));
+	    
+	    String outputFolder = "/usr/local/hadoop/average/output";
+	    FileOutputFormat.setOutputPath(job, new Path(outputFolder));
+	    
+	    File folder = new File(outputFolder);
+	    String[] files = folder.list();
+	    for(String file : files){
+	    	File currentFile = new File(folder.getPath(), file);
+	    	currentFile.delete();
+	    }
+	    folder.delete();
 	    
 	    workerThread.play();
 	    
 	    return job.waitForCompletion(true) ? 0 : 1;
 	}
-	
 }

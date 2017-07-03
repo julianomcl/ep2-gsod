@@ -22,6 +22,9 @@ public class AverageReducer extends Reducer<Text, ValueCountPair, Text, FloatWri
 		}
 		
 		average.set((float) (value / count));
+		System.out.println("******************************************************");
+		System.out.println("AverageReducer: " + key + " - " + average);
+		System.out.println("******************************************************");
 		context.write(key, average);
 	}
 }
