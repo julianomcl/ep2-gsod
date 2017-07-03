@@ -1,7 +1,6 @@
 package ep.hadoop.startup;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -14,7 +13,6 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.Tool;
 
-import ep.core.Main;
 import ep.hadoop.combiner.AverageCombiner;
 import ep.hadoop.mapper.DataMapper;
 import ep.hadoop.reducer.AverageReducer;

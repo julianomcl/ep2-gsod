@@ -1,6 +1,7 @@
 package ep.ui.controller;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -55,9 +56,13 @@ public class MainWindowController implements Initializable{
 			
 			@Override
 			protected Void call() throws Exception {
+				String sDtInicio = dtInicio.getEditor().getText();
+				String sDtTermino = dtTermino.getEditor().getText();
+				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+				
 				launcher.LaunchHadoop(
-						DateHelper.LocalDateToDate(dtInicio.getValue()),
-						DateHelper.LocalDateToDate(dtTermino.getValue()),
+						sdf.parse(sDtInicio),
+						sdf.parse(sDtTermino),
 						cmbMetodo.getValue().getValue(),
 						cmbAtributo.getValue().getValue());
 				return null;
