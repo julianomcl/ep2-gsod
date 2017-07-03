@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXProgressBar;
 
 import ep.hadoop.startup.HadoopLauncher;
 import ep.helper.DateHelper;
@@ -20,6 +21,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -29,9 +31,6 @@ public class MainWindowController implements Initializable{
     @FXML
     private JFXComboBox<ComboBoxKVP> cmbMetodo;
     
-    @FXML
-    private Label lblProgress;
-
     @FXML
     private AnchorPane ancMain;
 
@@ -46,6 +45,9 @@ public class MainWindowController implements Initializable{
 
     @FXML
     private DatePicker dtTermino;
+    
+    @FXML
+    private JFXProgressBar progress;
 
     @FXML
     void btnExecutarClick(ActionEvent event) {
@@ -60,6 +62,8 @@ public class MainWindowController implements Initializable{
 				String sDtTermino = dtTermino.getEditor().getText();
 				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 				
+				progress.setVisible(true);
+				
 				launcher.LaunchHadoop(
 						sdf.parse(sDtInicio),
 						sdf.parse(sDtTermino),
@@ -70,8 +74,18 @@ public class MainWindowController implements Initializable{
 		};
 		
 		task.setOnFailed(e -> {
+			progress.setVisible(false);
+			progress.setProgress(0.0);
 			Alert alert = UiExceptionHelper.getAlertForException(task.getException());
     		alert.showAndWait();
+		});
+		
+		task.setOnSucceeded(e ->{
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Hadoop");
+			alert.setContentText("Execução finalizada");
+			progress.setVisible(false);
+			progress.setProgress(0.0);
 		});
 		
 		new Thread(task).run();
@@ -117,7 +131,7 @@ public class MainWindowController implements Initializable{
 			
 			@Override
 			public void handle(ActionEvent event) {
-				lblProgress.setText("Map: " + launcher.getMapProgress() + "| Reduce: " + launcher.getReduceProgress());
+				progress.setProgress((launcher.getMapProgress() * 0.5) + (launcher.getReduceProgress() * 0.5));
 			}
 		};
     }

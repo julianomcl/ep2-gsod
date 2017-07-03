@@ -8,6 +8,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.Label?>
 
 <AnchorPane fx:id="ancMain" prefHeight="230.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ep.ui.controller.MainWindowController">
    <children>
@@ -24,13 +26,14 @@
                 <RowConstraints percentHeight="25.0" vgrow="SOMETIMES" />
                 <RowConstraints percentHeight="45.0" vgrow="SOMETIMES" />
                   <RowConstraints percentHeight="50.0" vgrow="SOMETIMES" />
+                  <RowConstraints percentHeight="3.0" vgrow="SOMETIMES" />
                   <RowConstraints percentHeight="35.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="15.0" />
                </padding>
                <children>
-                  <DatePicker fx:id="dtInicio" prefHeight="25.0" prefWidth="200.0" GridPane.rowIndex="1">
+                  <DatePicker fx:id="dtInicio" prefHeight="25.0" prefWidth="200.0" GridPane.rowIndex="1" >
                      <GridPane.margin>
                         <Insets left="75.0" />
                      </GridPane.margin>
@@ -60,12 +63,13 @@
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </JFXComboBox>
-                  <JFXButton fx:id="btnExecutar" buttonType="RAISED" onAction="#btnExecutarClick" prefWidth="125.0" style="-fx-background-color: #9E9E9E;" text="Executar" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                  <JFXButton fx:id="btnExecutar" buttonType="RAISED" onAction="#btnExecutarClick" prefWidth="125.0" style="-fx-background-color: #9E9E9E;" text="Executar" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
                      <GridPane.margin>
                         <Insets right="25.0" />
                      </GridPane.margin>
                   </JFXButton>
-                  <Label fx:id="lblProgress" text="Label" GridPane.rowIndex="4" />
+                  <JFXProgressBar GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" prefWidth="560" progress="0.0" visible="false" fx:id="progress">
+                  </JFXProgressBar>
                </children>
             </GridPane>
          </children>
@@ -73,5 +77,6 @@
             <DropShadow />
          </effect>
       </Pane>
+      
    </children>
 </AnchorPane>
