@@ -5,11 +5,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.util.Tool;
 
 import ep.core.Main;
 import ep.hadoop.combiner.AverageCombiner;
@@ -22,7 +24,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.util.Duration;
 
-public class HadoopLauncher {
+public class HadoopLauncher extends Configured implements Tool {
 	
 	private Job job;
 	
@@ -58,19 +60,43 @@ public class HadoopLauncher {
 		}
 	}
 	
-	public int LaunchHadoop(Date dtInicio, Date dtFim, String metodo, String atributo) throws IOException, ClassNotFoundException, InterruptedException{
-		Configuration conf = new Configuration();
-		conf.set("Metodo", metodo);
-		conf.set("Variavel", atributo);
-		
+	public int LaunchHadoop(Date dtInicio, Date dtFim, String metodo, String atributo) throws Exception{
+		String[] args = new String[4];
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-		conf.set("DataInicio", sdf.format(dtInicio));
-		conf.set("DataTermino", sdf.format(dtFim));
 		
+		args[0] = sdf.format(dtInicio);
+		args[1] = sdf.format(dtFim);
+		args[2] = metodo;
+		args[3] = atributo;
+		
+		return run(args);
+		
+	}
+
+	public EventHandler<ActionEvent> getAction() {
+		return action;
+	}
+
+	public void setAction(EventHandler<ActionEvent> action) {
+		this.action = action;
+		workerThread.stop();
+		workerThread.setOnFinished(action);
+		workerThread.setCycleCount(Timeline.INDEFINITE);
+		workerThread.play();
+	}
+
+	@Override
+	public int run(String[] arg0) throws Exception {
+		Configuration conf = new Configuration();
+		conf.set("DataInicio", arg0[0]);
+		conf.set("DataTermino", arg0[1]);
+		conf.set("Metodo", arg0[2]);
+		conf.set("Variavel", arg0[3]);
+			
 		
 		job = Job.getInstance(conf, "GSOD Hadoop");
 		
-	    job.setJarByClass(Main.class);
+	    job.setJarByClass(HadoopLauncher.class);
 	    
 	    job.setMapperClass(DataMapper.class);
 	    job.setCombinerClass(AverageCombiner.class);
@@ -89,19 +115,5 @@ public class HadoopLauncher {
 	    
 	    return job.waitForCompletion(true) ? 0 : 1;
 	}
-
-	public EventHandler<ActionEvent> getAction() {
-		return action;
-	}
-
-	public void setAction(EventHandler<ActionEvent> action) {
-		this.action = action;
-		workerThread.stop();
-		workerThread.setOnFinished(action);
-		workerThread.setCycleCount(Timeline.INDEFINITE);
-		workerThread.play();
-	}
-	
-	
 	
 }
