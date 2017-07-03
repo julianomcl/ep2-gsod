@@ -67,7 +67,17 @@ public class MainWindowController implements Initializable{
 						sdf.parse(sDtTermino),
 						cmbMetodo.getValue().getValue(),
 						cmbAtributo.getValue().getValue());
+				
 				return null;
+			}
+			
+			@Override
+			protected void succeeded() {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Hadoop");
+				alert.setContentText("Execução finalizada");
+				progress.setVisible(false);
+				progress.setProgress(0.0);
 			}
 		};
 		
@@ -78,15 +88,7 @@ public class MainWindowController implements Initializable{
     		alert.showAndWait();
 		});
 		
-		task.setOnSucceeded(e ->{
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Hadoop");
-			alert.setContentText("Execução finalizada");
-			progress.setVisible(false);
-			progress.setProgress(0.0);
-		});
-		
-		new Thread(task).run();
+		new Thread(task).start();
     }
     
     private HadoopLauncher launcher;
